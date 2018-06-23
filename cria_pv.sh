@@ -39,7 +39,7 @@ echo \
     "name": "${volume}"\
   },\
   "spec": {\
-    "capacity": {
+    "capacity": {\
         "storage": "${volsize2}"\
     },\
     "accessModes": [ "ReadWriteOnce" ],\
