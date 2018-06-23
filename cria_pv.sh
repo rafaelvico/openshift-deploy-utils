@@ -1,4 +1,4 @@
-export storage_host=10.156.4.59
+export storage_host="10.156.4.59"
 export storage_nfs_directory=/nfs-server/pvs
 
 export nfs_server="/var/opt/pv-defs"
