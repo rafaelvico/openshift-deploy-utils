@@ -1,11 +1,11 @@
     apiVersion: v1
     kind: BuildConfig
     metadata:
-      name: nodejs-ex-pipeline
+      name: smanager-node-pipeline
       labels:
         app: jenkins-pipeline-example
-        name: nodejs-ex--pipeline
-        template: application-template-nodejs-ex--pipeline
+        name: smanager-node-pipeline
+        template: application-template-smanager-node-pipeline
     spec:
       runPolicy: Serial
       strategy:
