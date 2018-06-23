@@ -11,21 +11,21 @@ mkdir ${voldir}
 for volume in pv{1..25} ; do
 echo "
 {
-  "apiVersion": "v1",
-  "kind": "PersistentVolume",
-  "metadata": {
-    "name": "${volume}"
+  \"apiVersion\": \"v1\",
+  \"kind\": \"PersistentVolume\",
+  \"metadata\": {
+    \"name\": \"${volume}\"
   },
-  "spec": {
-    "capacity": {
-        "storage": "${volsize1}"
+  \"spec\": {
+    \"capacity\": {
+        \"storage\": \"${volsize1}\"
     },
-    "accessModes": [ "ReadWriteOnce" ],
-    "nfs": {
-        "path": "${storage_nfs_directory}/${volume}",
-        "server": "${storage_host}"
+    \"accessModes\": [ \"ReadWriteOnce\" ],
+    \"nfs\": {
+        \"path\": \"${storage_nfs_directory}/${volume}\",
+        \"server": \"${storage_host}\"
     },
-    "persistentVolumeReclaimPolicy": "Recycle"
+    \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize1}":
@@ -33,21 +33,21 @@ done;
 for volume in pv{25..75} ; do
 echo "
 {
-  "apiVersion": "v1",
-  "kind": "PersistentVolume",
-  "metadata": {
-    "name": "${volume}"
+  \"apiVersion\": \"v1\",
+  \"kind\": \"PersistentVolume\",
+  \"metadata\": {
+    \"name\": \"${volume}\"
   },
-  "spec": {
-    "capacity": {
-        "storage": "${volsize2}"
+  \"spec\": {
+    \"capacity\": {
+        \"storage\": \"${volsize2}\"
     },
-    "accessModes": [ "ReadWriteOnce" ],
-    "nfs": {
-        "path": "${storage_nfs_directory}/${volume}",
-        "server": "${storage_host}"
+    \"accessModes\": [ \"ReadWriteOnce\" ],
+    \"nfs\": {
+        \"path\": \"${storage_nfs_directory}/${volume}\",
+        \"server": \"${storage_host}\"
     },
-    "persistentVolumeReclaimPolicy": "Recycle"
+    \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize2}";
@@ -55,21 +55,21 @@ done;
 for volume in pv{75..100} ; do
 echo "
 {
-  "apiVersion": "v1",
-  "kind": "PersistentVolume",
-  "metadata": {
-    "name": "${volume}"
+  \"apiVersion\": \"v1\",
+  \"kind\": \"PersistentVolume\",
+  \"metadata\": {
+    \"name\": \"${volume}\"
   },
-  "spec": {
-    "capacity": {
-        "storage": "${volsize3}"
+  \"spec\": {
+    \"capacity\": {
+        \"storage\": \"${volsize3}\"
     },
-    "accessModes": [ "ReadWriteOnce" ],
-    "nfs": {
-        "path": "${storage_nfs_directory}/${volume}",
-        "server": "${storage_host}"
+    \"accessModes\": [ \"ReadWriteOnce\" ],
+    \"nfs\": {
+        \"path\": \"${storage_nfs_directory}/${volume}\",
+        \"server": \"${storage_host}\"
     },
-    "persistentVolumeReclaimPolicy": "Recycle"
+    \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize3}";
