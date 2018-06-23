@@ -27,6 +27,7 @@ echo "
     },
     \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
+ }
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize1}":
 done;
@@ -49,6 +50,7 @@ echo "
     },
     \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
+ } 
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize2}";
 done;
@@ -71,6 +73,7 @@ echo "
     },
     \"persistentVolumeReclaimPolicy\": \"Recycle\"
   }
+ } 
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize3}";
 done;
