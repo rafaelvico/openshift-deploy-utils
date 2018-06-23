@@ -1,28 +1,4 @@
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
-metadata:
-  creationTimestamp: '2018-06-21T00:31:48Z'
-  labels:
-    app: jenkins-pipeline-example
-    name: nodejs-ex-pipeline
-    template: application-template-sample-pipeline
-  name: sample-pipeline
-  namespace: cicd-monolith-2de1
-  resourceVersion: '219840217'
-  selfLink: >-
-    /apis/build.openshift.io/v1/namespaces/cicd-monolith-2de1/buildconfigs/sample-pipeline
-  uid: 7c33216d-74ea-11e8-83d7-02722ccca8d2
-spec:
-  nodeSelector: null
-  output: {}
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    type: None
-  strategy:
-    jenkinsPipelineStrategy:
-      jenkinsfile: |-
+
         node('') {
           stage 'Atualiza a Build em Dev'
             openshiftBuild(namespace:'dev',buildConfig: 'node-js', showBuildLogs: 'true')
