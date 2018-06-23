@@ -35,7 +35,6 @@
                 openshiftDeploy(namespace:'cicd',deploymentConfig: 'nodejs-ex')
                 openshiftScale(namespace:'cicd',deploymentConfig: 'nodejs-ex',replicaCount: '5')            
             }
-        type: JenkinsPipeline
       triggers:
         - github:
             secret: kH1HfX7p
