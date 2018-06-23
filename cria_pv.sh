@@ -38,7 +38,7 @@ echo > /${voldir}/${volume}
   },
   "spec": {
     "capacity": {
-        "storage": "${volsize1}"
+        "storage": "${volsize2}"
     },
     "accessModes": [ "ReadWriteOnce" ],
     "nfs": {
@@ -47,7 +47,7 @@ echo > /${voldir}/${volume}
     },
     "persistentVolumeReclaimPolicy": "Recycle"
   }
-echo "Created def file for ${volume} ${volsize1}"
+echo "Created def file for ${volume} ${volsize2}";
 for volume in pv{75..100} ; do
 echo > /${voldir}/${volume}
 {
@@ -67,6 +67,6 @@ echo > /${voldir}/${volume}
     },
     "persistentVolumeReclaimPolicy": "Recycle"
   }
-echo "Created def file for ${volume} ${volsize3}"
+echo "Created def file for ${volume} ${volsize3}";
 
 done;
