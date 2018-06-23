@@ -1,0 +1,49 @@
+    apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: sample-pipeline
+      labels:
+        app: jenkins-pipeline-example
+        name: sample-pipeline
+        template: application-template-sample-pipeline
+    spec:
+      runPolicy: Serial
+      strategy:
+        type: JenkinsPipeline
+        jenkinsPipelineStrategy:
+          jenkinsfile: |-
+            node('') {
+              stage 'Atualiza a Build em Dev'
+                openshiftBuild(namespace:'dev',buildConfig: 'node-js', showBuildLogs: 'true')
+              stage 'Deploy em Dev'
+                openshiftDeploy(namespace:'dev',deploymentConfig: 'node-js')
+                openshiftScale(namespace:'dev',deploymentConfig: 'node-js',replicaCount: '5')
+              stage 'Promove para Stage ?'
+                input 'Proceeed ?'
+              stage 'Atualiza a Build em Stage'
+                openshiftBuild(namespace:'stage',buildConfig: 'node-js', showBuildLogs: 'true')
+              stage 'Deploy em Stage'
+                openshiftTag(namespace: 'stage', sourceStream: 'node-js',  sourceTag: 'latest', destinationStream: 'node-js', destinationTag: 'promoteToQA')
+                openshiftDeploy(namespace:'stage',deploymentConfig: 'node-js')
+                openshiftScale(namespace:'stage',deploymentConfig: 'node-js',replicaCount: '5')
+              stage 'Promove para Produção ?'
+                input 'Proceeed ?'
+              stage 'Atualiza a Build em CI/CD'
+                openshiftBuild(namespace:'cicd',buildConfig: 'node-js', showBuildLogs: 'true')
+              stage 'Deploy em CI/CD'
+                openshiftTag(namespace: 'cicd', sourceStream: 'node-js',  sourceTag: 'latest', destinationStream: 'node-js', destinationTag: 'promoteToProd')
+                openshiftDeploy(namespace:'cicd',deploymentConfig: 'node-js')
+                openshiftScale(namespace:'cicd',deploymentConfig: 'node-js',replicaCount: '5')            
+            }
+        type: JenkinsPipeline
+      triggers:
+        - github:
+            secret: kH1HfX7p
+          type: GitHub
+        - generic:
+            secret: kH1HfX7p
+          type: Generic
+      output:
+      resources:
+      postCommit:
+
