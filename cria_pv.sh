@@ -74,4 +74,6 @@ echo "
   "> /${voldir}/${volume}
 echo "Created def file for ${volume} ${volsize3}";
 done;
+cd ${voldir}
 for volume in pv{1..100} ; do cat ${volume} | oc create -f - -n default; done
+cd ~
