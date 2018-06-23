@@ -1,11 +1,11 @@
     apiVersion: v1
     kind: BuildConfig
     metadata:
-      name: sample-pipeline
+      name: nodejs-ex-pipeline
       labels:
         app: jenkins-pipeline-example
-        name: sample-pipeline
-        template: application-template-sample-pipeline
+        name: nodejs-ex--pipeline
+        template: application-template-nodejs-ex--pipeline
     spec:
       runPolicy: Serial
       strategy:
@@ -14,26 +14,26 @@
           jenkinsfile: |-
             node('') {
               stage 'Atualiza a Build em Dev'
-                openshiftBuild(namespace:'dev',buildConfig: 'node-js', showBuildLogs: 'true')
+                openshiftBuild(namespace:'dev',buildConfig: 'nodejs-ex', showBuildLogs: 'true')
               stage 'Deploy em Dev'
-                openshiftDeploy(namespace:'dev',deploymentConfig: 'node-js')
-                openshiftScale(namespace:'dev',deploymentConfig: 'node-js',replicaCount: '5')
+                openshiftDeploy(namespace:'dev',deploymentConfig: 'nodejs-ex')
+                openshiftScale(namespace:'dev',deploymentConfig: 'nodejs-ex',replicaCount: '5')
               stage 'Promove para Stage ?'
                 input 'Proceeed ?'
               stage 'Atualiza a Build em Stage'
-                openshiftBuild(namespace:'stage',buildConfig: 'node-js', showBuildLogs: 'true')
+                openshiftBuild(namespace:'stage',buildConfig: 'nodejs-ex', showBuildLogs: 'true')
               stage 'Deploy em Stage'
-                openshiftTag(namespace: 'stage', sourceStream: 'node-js',  sourceTag: 'latest', destinationStream: 'node-js', destinationTag: 'promoteToQA')
-                openshiftDeploy(namespace:'stage',deploymentConfig: 'node-js')
-                openshiftScale(namespace:'stage',deploymentConfig: 'node-js',replicaCount: '5')
+                openshiftTag(namespace: 'stage', sourceStream: 'nodejs-ex',  sourceTag: 'latest', destinationStream: 'nodejs-ex', destinationTag: 'promoteToQA')
+                openshiftDeploy(namespace:'stage',deploymentConfig: 'nodejs-ex')
+                openshiftScale(namespace:'stage',deploymentConfig: 'nodejs-ex',replicaCount: '5')
               stage 'Promove para Produção ?'
                 input 'Proceeed ?'
               stage 'Atualiza a Build em CI/CD'
-                openshiftBuild(namespace:'cicd',buildConfig: 'node-js', showBuildLogs: 'true')
+                openshiftBuild(namespace:'cicd',buildConfig: 'nodejs-ex', showBuildLogs: 'true')
               stage 'Deploy em CI/CD'
-                openshiftTag(namespace: 'cicd', sourceStream: 'node-js',  sourceTag: 'latest', destinationStream: 'node-js', destinationTag: 'promoteToProd')
-                openshiftDeploy(namespace:'cicd',deploymentConfig: 'node-js')
-                openshiftScale(namespace:'cicd',deploymentConfig: 'node-js',replicaCount: '5')            
+                openshiftTag(namespace: 'cicd', sourceStream: 'nodejs-ex',  sourceTag: 'latest', destinationStream: 'nodejs-ex', destinationTag: 'promoteToProd')
+                openshiftDeploy(namespace:'cicd',deploymentConfig: 'nodejs-ex')
+                openshiftScale(namespace:'cicd',deploymentConfig: 'nodejs-ex',replicaCount: '5')            
             }
         type: JenkinsPipeline
       triggers:
