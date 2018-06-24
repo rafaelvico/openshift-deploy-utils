@@ -10,7 +10,7 @@ export volsize3="10Gi"
 mkdir ${voldir}
 for volume in pv{1..25} ; do
 echo "
-  apiVersion: v1,
+  apiVersion: v1
   kind: PersistentVolume
   metadata: 
     name: ${volume}
@@ -28,7 +28,7 @@ echo "Created def file for ${volume} ${volsize1}":
 done;
 for volume in pv{25..75} ; do
 echo "
-  apiVersion: v1,
+  apiVersion: v1
   kind: PersistentVolume
   metadata: 
     name: ${volume}
@@ -46,7 +46,7 @@ echo "Created def file for ${volume} ${volsize2}";
 done;
 for volume in pv{75..100} ; do
 echo "
-  apiVersion: v1,
+  apiVersion: v1
   kind: PersistentVolume
   metadata: 
     name: ${volume}
