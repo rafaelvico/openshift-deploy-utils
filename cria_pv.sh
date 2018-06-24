@@ -1,5 +1,5 @@
-export storage_host="10.156.4.59"
-export storage_nfs_directory=/nfs-server/pvs
+export storage_host= # Inserir as informações do ambiente que foi construido
+export storage_nfs_directory= # Consulte o arquivo de inventário para usar o mesmo NFS do Logging e do Metrics
 
 export nfs_server="/var/opt/pv-defs"
 export voldir="/var/opt/pv-defs"
