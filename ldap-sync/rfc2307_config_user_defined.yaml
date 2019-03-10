@@ -1,0 +1,28 @@
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldap://sede-rootdc01.senac.corp:389
+insecure: true
+bindDN: "CN=OpenShift,OU=Contas de Sistemas,DC=senac,DC=corp"
+bindPassword:
+  file: /etc/origin/master/ldap-sync/ldap.senacsp.bindPassword.encrypted
+  keyFile: /etc/origin/master/ldap-sync/ldap.senacsp.bindPassword.key
+rfc2307:
+  groupsQuery:
+    baseDN: "OU=Grupos de Segurança,DC=senac,DC=corp"
+    scope: sub
+    derefAliases: never
+    filter: (objectClass=group)
+    pageSize: 9999
+  groupUIDAttribute: dn
+  groupNameAttributes: [ sAMAccountName ] 
+  groupMembershipAttributes: [ member ]
+  usersQuery:
+    baseDN: "dc=senac,dc=corp"
+    scope: sub
+    derefAliases: never
+    pageSize: 9999
+  userUIDAttribute: dn
+  userNameAttributes: [ sAMAccountName ]
+  tolerateMemberNotFoundErrors: false
+  tolerateMemberOutOfScopeErrors: false
+
