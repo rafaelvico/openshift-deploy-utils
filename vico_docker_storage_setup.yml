@@ -48,5 +48,3 @@
       name: docker
       enabled: yes
       state: started
-
-- import_playbook: vico_docker_pull.yml

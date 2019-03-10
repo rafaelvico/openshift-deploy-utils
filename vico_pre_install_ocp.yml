@@ -1,14 +1,16 @@
 ---
-- hosts: all
+- hosts: nodes
   remote_user: root
   tasks:
-  - name: registrar o host
-    redhat_subscription:
-      force_register: yes
-      state: present
-      username: "{{ rhsub_user }}"
-      password: "{{ rhsub_pass }}"
-      pool_ids: "{{ rhsub_pool }}"
+#  - name: registrar o host
+#    redhat_subscription:
+#      force_register: yes
+#      state: present
+#      username: "{{ rhsub_user }}"
+#      password: "{{ rhsub_pass }}"
+#      activationkey: "{{ rhsat_actkey }}"
+#      org_id: "{{ rhsat_org }}"
+#      pool_ids: "{{ rhsub_pool }}"
 
   - name: Limpa lista de repositórios comunidade
     yum_repository:
@@ -43,6 +45,7 @@
       - atomic-openshift-node
       - atomic-openshift-clients
       - conntrack-tools
+      - atomic-openshift-docker-excluder
 
 
   handlers:
@@ -57,5 +60,5 @@
       state: "latest"
 
 - import_playbook: vico_docker_storage_setup.yml
-
+#- import_playbook: vico_docker_pull.yml
 - import_playbook: vico_etcd_storage_setup.yml

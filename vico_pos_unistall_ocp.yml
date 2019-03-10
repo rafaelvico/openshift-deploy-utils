@@ -3,19 +3,19 @@
   remote_user: root
   tasks:
   - name: Limpeza do docker storage
-    shell: "systemctl stop docker ; yum remove docker docker-common -y ; rm -Rf /var/lib/docker/* ; rm -Rf /var/lib/origin/openshift.local.volumes ; umount /var/lib/docker/* ; umount /var/lib/origin/openshift.local.volumes ; umount /var/lib/docker ; yum clean all ; rm -rf /var/cache/yum"
+    shell: "systemctl stop docker ; yum remove docker docker-common -y ; rm -Rf /var/lib/docker/* ; rm -Rf /var/lib/origin/openshift.local.volumes ; umount /var/lib/docker/* ; umount /var/lib/origin/openshift.local.volumes ; umount /var/lib/docker ; yum clean all ; rm -rf /var/cache/yum ; rm -rf /tmp/* "
 
-#  - name: Remove LV
-#    lvol:
-#      vg: docker_vg
-#      lv: *
-#      state: absent
-#      force: yes
+  - name: Remove LV
+    lvol:
+      vg: docker_vg
+      lv: dockerlv
+      state: absent
+      force: yes
 
-#  - name: Remove VG
-#    lvg:
-#      vg: docker_vg
-#      state: absent
+  - name: Remove VG
+    lvg:
+      vg: docker_vg
+      state: absent
 
   - name: Limpa partição
     parted:
