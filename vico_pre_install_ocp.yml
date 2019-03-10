@@ -1,0 +1,61 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+  - name: registrar o host
+    redhat_subscription:
+      force_register: yes
+      state: present
+      username: "{{ rhsub_user }}"
+      password: "{{ rhsub_pass }}"
+      pool_ids: "{{ rhsub_pool }}"
+
+  - name: Limpa lista de repositórios comunidade
+    yum_repository:
+      name: "{{ item }}" 
+      state: absent
+    with_items: 
+      - epel
+      - rpmforge
+    notify: yum-clean-metadata
+
+  - name: Limpa repositórios RedHat
+    rhsm_repository:
+      name: "*"
+      state: disabled
+
+  - name: Habilita repositórios OCP 
+    rhsm_repository:
+      name: "{{ item }}"
+    with_items:    
+      - rhel-7-server-rpms
+      - rhel-7-server-extras-rpms
+      - rhel-7-server-ose-{{ openshift_version }}-rpms
+      - rhel-7-fast-datapath-rpms
+      - rhel-7-server-ansible-2.7-rpms
+
+  - name: Instala Openshift Nodes, SDN, Conntrack
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - atomic-openshift-sdn-ovs
+      - atomic-openshift-node
+      - atomic-openshift-clients
+      - conntrack-tools
+
+
+  handlers:
+  - name: yum-clean-metadata
+    command: yum clean metadata
+    args:
+      warn: no
+
+  - name: Atualizar Errata
+    yum:
+      name: "*"
+      state: "latest"
+
+- import_playbook: vico_docker_storage_setup.yml
+
+- import_playbook: vico_etcd_storage_setup.yml

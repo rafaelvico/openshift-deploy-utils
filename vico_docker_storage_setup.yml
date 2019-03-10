@@ -1,0 +1,52 @@
+- hosts: nodes
+  remote_user: root
+  tasks:
+  - name: Instalar Docker 
+    yum:
+      name: docker
+      state: present
+
+  - name: Configurando Openshift local volumes em /dev/sdc - Passo 1
+    parted:
+      device: /dev/sdc
+      number: 1
+      state: present
+
+  - name: Configurando Openshift local volumes em /dev/sdc - Cria FS
+    filesystem:
+      fstype: xfs
+      dev: /dev/sdc1
+
+  - name: Configurando Openshift local volumes em /dev/sdc - Permissões
+    file:
+      path: /var/lib/origin/openshift.local.volumes
+      state: directory
+      mode: 0755 
+
+  - name: Configurando Openshift local volumes em /dev/sdc - FStab
+    mount:
+      path: /var/lib/origin/openshift.local.volumes
+      src: /dev/sdc1
+      state: present
+      fstype: xfs
+      opts: gquota
+
+  - name: Configurando Openshift local volumes em /dev/sdc - Contexto SELinux
+    shell: "restorecon -R /var/lib/origin/openshift.local.volumes"
+  
+  - name: Distribui o template do Docker Storage
+    template:
+      src: ~/docker-storage-setup
+      dest: /etc/sysconfig/docker-storage-setup
+      mode: 0644
+       
+  - name: Configura o Docker Storage
+    command: docker-storage-setup
+           
+  - name: Sobe o serviço do Docker
+    service:
+      name: docker
+      enabled: yes
+      state: started
+
+- import_playbook: vico_docker_pull.yml

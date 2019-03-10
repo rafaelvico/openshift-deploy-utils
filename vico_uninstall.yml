@@ -1,0 +1,11 @@
+---
+- hosts: nodes
+  remote_user: root
+  tasks:
+  - name: Desmonta Docker Storage
+    shell: "systemctl stop docker ;umount /var/lib/docker"
+
+#- import_playbook: /usr/share/ansible/openshift-ansible/playbooks/adhoc/uninstall.yml
+
+#- import_playbook: vico_pos_unistall_ocp.yml
+

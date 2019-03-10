@@ -1,0 +1,26 @@
+---
+- hosts: etcd
+  remote_user: root
+  tasks:
+  - name: particiona disco 
+    parted:
+      device: "{{etcd_storage_device}}"
+      number: 1
+      state: present
+  - name: Prepara etcd storage "{{etcd_storage_device}}" "{{etcd_storage_path}}" 
+    filesystem:
+      fstype: xfs
+      dev: "{{etcd_storage_device}}1"
+  - name:
+    file:
+      path: "{{etcd_storage_path}}"
+      state: directory
+      mode: 0755
+  - name:
+    mount:
+      path: "{{etcd_storage_path}}"
+      state: mounted
+      src: "{{etcd_storage_device}}1"
+      fstype: xfs
+  - name: SELinux
+    shell: "restorecon -R {{etcd_storage_path}}"
