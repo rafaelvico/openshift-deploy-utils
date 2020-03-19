@@ -1,14 +1,14 @@
 kind: LDAPSyncConfig
 apiVersion: v1
-url: ldap://sede-rootdc01.senac.corp:389
+url: ldap://sede-rootdc01.vico.corp:389
 insecure: true
-bindDN: "CN=OpenShift,OU=Contas de Sistemas,DC=senac,DC=corp"
+bindDN: "CN=OpenShift,OU=Contas de Sistemas,DC=vico,DC=corp"
 bindPassword:
-  file: /etc/origin/master/ldap-sync/ldap.senacsp.bindPassword.encrypted
-  keyFile: /etc/origin/master/ldap-sync/ldap.senacsp.bindPassword.key
+  file: /etc/origin/master/ldap-sync/ldap.vico.bindPassword.encrypted
+  keyFile: /etc/origin/master/ldap-sync/ldap.vico.bindPassword.key
 rfc2307:
   groupsQuery:
-    baseDN: "OU=Grupos de Segurança,DC=senac,DC=corp"
+    baseDN: "OU=Grupos de Segurança,DC=vico,DC=corp"
     scope: sub
     derefAliases: never
     filter: (objectClass=group)
@@ -17,7 +17,7 @@ rfc2307:
   groupNameAttributes: [ sAMAccountName ] 
   groupMembershipAttributes: [ member ]
   usersQuery:
-    baseDN: "dc=senac,dc=corp"
+    baseDN: "dc=vico,dc=corp"
     scope: sub
     derefAliases: never
     pageSize: 9999
