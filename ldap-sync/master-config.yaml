@@ -56,12 +56,12 @@ corsAllowedOrigins:
 - (?i)//127\.0\.0\.1(:|\z)
 - (?i)//localhost(:|\z)
 - (?i)//10\.226\.0\.31(:|\z)
-- (?i)//openshift\-api\.sp\.senac\.br(:|\z)
+- (?i)//openshift\-api\.vico\.br(:|\z)
 - (?i)//kubernetes\.default(:|\z)
 - (?i)//kubernetes\.default\.svc\.cluster\.local(:|\z)
 - (?i)//kubernetes(:|\z)
 - (?i)//openshift\.default(:|\z)
-- (?i)//openshift\.sp\.senac\.br(:|\z)
+- (?i)//openshift\.vico\.br(:|\z)
 - (?i)//openshift\.default\.svc(:|\z)
 - (?i)//172\.30\.0\.1(:|\z)
 - (?i)//openshift\.default\.svc\.cluster\.local(:|\z)
@@ -142,7 +142,7 @@ masterClients:
     contentType: application/vnd.kubernetes.protobuf
     qps: 300
   openshiftLoopbackKubeConfig: openshift-master.kubeconfig
-masterPublicURL: https://openshift.sp.senac.br:443
+masterPublicURL: https://openshift.vico.br:443
 networkConfig:
   clusterNetworks:
   - cidr: 172.16.0.0/16
@@ -152,14 +152,14 @@ networkConfig:
   networkPluginName: redhat/openshift-ovs-networkpolicy
   serviceNetworkCIDR: 172.30.0.0/16
 oauthConfig:
-  assetPublicURL: https://openshift.sp.senac.br/console/
+  assetPublicURL: https://openshift.vico.br/console/
   grantConfig:
     method: auto
   identityProviders:
   - challenge: true
     login: true
     mappingMethod: claim
-    name: "SENACSP_ActiveDiectory"
+    name: "VICO_ActiveDiectory"
     provider:
       apiVersion: v1
       kind: LDAPPasswordIdentityProvider
@@ -172,13 +172,13 @@ oauthConfig:
         - mail
         preferredUsername:
         - uid
-      bindDN: "CN=OpenShift,OU=Contas de Sistemas,DC=senac,DC=corp"
+      bindDN: "CN=OpenShift,OU=Contas de Sistemas,DC=vico,DC=corp"
       bindPassword:
-        file: ldap-sync/ldap.senacsp.bindPassword.encrypted
-        keyFile: ldap-sync/ldap.senacsp.bindPassword.key
+        file: ldap-sync/ldap.vico.bindPassword.encrypted
+        keyFile: ldap-sync/ldap.vico.bindPassword.key
       #ca: my-ldap-ca-bundle.crt
       insecure: true
-      url: "ldap://sede-rootdc01.senac.corp:389/dc=senac,dc=corp?sAMAccountName"
+      url: "ldap://sede-rootdc01.vico.corp:389/dc=vico,dc=corp?sAMAccountName"
 
 
 
@@ -191,8 +191,8 @@ oauthConfig:
 #      file: /etc/origin/master/htpasswd
 #      kind: HTPasswdPasswordIdentityProvider
   masterCA: ca-bundle.crt
-  masterPublicURL: https://openshift.sp.senac.br:443
-  masterURL: https://openshift-api.sp.senac.br:443
+  masterPublicURL: https://openshift.vico.br:443
+  masterURL: https://openshift-api.vico.br:443
   sessionConfig:
     sessionMaxAgeSeconds: 3600
     sessionName: ssn
@@ -214,7 +214,7 @@ projectConfig:
     mcsLabelsPerProject: 5
     uidAllocatorRange: 1000000000-1999999999/10000
 routingConfig:
-  subdomain: cloud.sp.senac.br
+  subdomain: cloud.vico.br
 serviceAccountConfig:
   limitSecretReferences: false
   managedNames:
@@ -236,7 +236,7 @@ servingInfo:
   - certFile: /etc/origin/master/named_certificates/OPENSHIFT.crt
     keyFile: /etc/origin/master/named_certificates/OPENSHIFT.key
     names:
-    - openshift.sp.senac.br
+    - openshift.vico.br
   requestTimeoutSeconds: 3600
 volumeConfig:
   dynamicProvisioningEnabled: true
